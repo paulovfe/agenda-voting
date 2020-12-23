@@ -1,0 +1,1 @@
+user-info.url: http://localhost:${wiremock.server.port}/user-info

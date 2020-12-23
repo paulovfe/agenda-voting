@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "default.expiration.session",
+      "type": "java.time.Duration",
+      "description": "Tempo default em minutos para expiração da sessão de votação."
+    },
+    {
+      "name": "user-info.url",
+      "type": "java.lang.String",
+      "description": "URL do serviço de consulta de informações do usuário."
+    },
+    {
+      "name": "cron.close.agenda",
+      "type": "java.lang.String",
+      "description": "Cron de execução do job de encerramento da votação."
+    }
+  ]
+}

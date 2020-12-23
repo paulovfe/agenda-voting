@@ -1,0 +1,69 @@
+plugins {
+    id "org.springframework.boot" version "2.4.1"
+    id "io.spring.dependency-management" version "1.0.10.RELEASE"
+    id "java"
+}
+
+group = "com.paulovfe"
+version = "0.0.1-SNAPSHOT"
+sourceCompatibility = JavaVersion.VERSION_14
+targetCompatibility = JavaVersion.VERSION_14
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/milestone" }
+}
+
+ext {
+    set("springCloudVersion", "2020.0.0-RC1")
+    set("springdocOpenapiVersion", "1.5.1")
+    set("mapstructVersion", "1.4.1.Final")
+    set("hibernateValidatorVersion", "6.1.7.Final")
+}
+
+compileJava {
+    options.compilerArgs = [
+            "-parameters",
+            "-Amapstruct.defaultComponentModel=spring"
+    ]
+}
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-data-mongodb"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-hateoas"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
+    implementation "org.springframework.cloud:spring-cloud-starter-sleuth"
+    implementation "org.springframework.kafka:spring-kafka"
+    implementation "org.springdoc:springdoc-openapi-ui:$springdocOpenapiVersion"
+    implementation "org.mapstruct:mapstruct:$mapstructVersion"
+    implementation "org.hibernate:hibernate-validator:$hibernateValidatorVersion"
+
+    compileOnly "org.projectlombok:lombok"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    annotationProcessor "org.projectlombok:lombok"
+    annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
+
+    testCompileOnly "org.projectlombok:lombok"
+    testAnnotationProcessor "org.projectlombok:lombok"
+    testImplementation "io.rest-assured:rest-assured"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "org.springframework.cloud:spring-cloud-starter-contract-stub-runner"
+    testImplementation "de.flapdoodle.embed:de.flapdoodle.embed.mongo"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

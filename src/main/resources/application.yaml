@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: agenda-voting
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: ${spring.application.name}-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: com.paulovfe.agendavoting.dto
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+voting.closed.result.topic: voting_closed_result
+
+user-info.url: https://user-info.herokuapp.com
+cron.close.agenda: 0 0/1 * * * ?
+
+logging:
+  level:
+    com.paulovfe.agendavoting: DEBUG
